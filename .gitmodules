@@ -1,0 +1,3 @@
+[submodule "OpenNN"]
+	path = OpenNN
+	url = https://github.com/Artelnics/OpenNN
