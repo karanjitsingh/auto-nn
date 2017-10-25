@@ -4,9 +4,9 @@ project(auto_nn)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        2048/game.cpp
+        2048/Two048.cpp
         main.cpp
-        NeuralNetwork/nn.cpp 2048/game.h)
+        NeuralNetwork/NeuralNetwork.cpp 2048/Two048.h)
 
 add_executable(auto_nn ${SOURCE_FILES})
 add_subdirectory(OpenNN)

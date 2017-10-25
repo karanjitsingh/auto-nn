@@ -1,5 +1,5 @@
 #include <iostream>
-#include "2048/game.cpp"
+#include "2048/Two048.cpp"
 
 #include "OpenNN/opennn/opennn.h"
 
