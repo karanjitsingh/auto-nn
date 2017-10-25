@@ -1,17 +1,13 @@
 #include <iostream>
 #include "2048/Two048.cpp"
 
-#include "OpenNN/opennn/opennn.h"
 
 using namespace std;
-using namespace OpenNN;
 
 
 int main() {
 
     Two048::Game game(4);
-
-    OpenNN::DataSet * data;
 
     game.printGrid();
 
