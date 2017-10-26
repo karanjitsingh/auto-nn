@@ -8,42 +8,42 @@ using namespace std;
 
 namespace Two048 {
 
-    struct GameState {
-        bool full;
-        bool valid;
-        bool halt;
-        int score;
-    };
+	struct GameState {
+		bool full;
+		bool valid;
+		bool halt;
+		int score;
+	};
 
-    enum Direction{Up, Down, Left, Right};
+	enum Direction{Up, Down, Left, Right};
 
-    class Game {
+	class Game {
 
-    private:
+	private:
 
-        // Static constructor
-        struct staticConstructor {
-        public:
-            staticConstructor();
-        };
+		// Static constructor
+		struct staticConstructor {
+		public:
+			staticConstructor();
+		};
 
-        int size;
-        int emptyTilesCount;
-        int ** grid;
-        GameState currState;
+		int size;
+		int emptyTilesCount;
+		int ** grid;
+		GameState currState;
 
-        int * getGridPointer(int m, int n, bool transpose);
+		int * getGridPointer(int m, int n, bool transpose);
 
-        int addRandom();
+		int addRandom();
 
-    public:
+	public:
 
-        Game(int n);
-        void printGrid();
+		Game(int n);
+		void printGrid();
 
-        GameState transition(Direction d);
+		GameState transition(Direction d);
 
-    };
+	};
 
 
 }

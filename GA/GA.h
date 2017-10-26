@@ -1,7 +1,3 @@
-//
-// Created by kj on 10/25/17.
-//
-
 #ifndef AUTO_NN_GA_H
 #define AUTO_NN_GA_H
 
@@ -11,36 +7,36 @@
 using namespace std;
 
 namespace GA {
-    enum LayerStructure {Uniform, Decreasing, Increasing} ;
-    struct Signature {
-        int minHiddenLayers;
-        int maxHiddenLayers;
-        int minNeurons;
-        int maxNeurons;
-        int positiveReward;
-        int negativeReward;
-        int inputSize;
-        int outputSize;
-        LayerStructure layerStructure;
-    };
+	enum LayerStructure {Uniform, Decreasing, Increasing} ;
+	struct Signature {
+		int minHiddenLayers;
+		int maxHiddenLayers;
+		int minNeurons;
+		int maxNeurons;
+		int positiveReward;
+		int negativeReward;
+		int inputSize;
+		int outputSize;
+		LayerStructure layerStructure;
+	};
 
-    class Genotype {
+	class Genotype {
 
 public:
-    Signature signature;
-    vector<int> architecture;
-    float learningRate;         // eta
-    float discountFactor;       // gamma
-    int generation;
+	Signature signature;
+	vector<int> architecture;
+	float learningRate;         // eta
+	float discountFactor;       // gamma
+	int generation;
 
-    // genotype from signature
-    Genotype(Signature *_signature);
+	// genotype from signature
+	Genotype(Signature *_signature);
 
-    // clone, set cloneWithMutation if you require performing random mutation
-    Genotype(Genotype * A, bool cloneWithMutation = false);
+	// clone, set cloneWithMutation if you require performing random mutation
+	Genotype(Genotype * A, bool cloneWithMutation = false);
 
-    // crossover
-    Genotype(Genotype * A, Genotype * B);
+	// crossover
+	Genotype(Genotype * A, Genotype * B);
 };
 }
 
