@@ -4,7 +4,7 @@
 #include <iostream>
 #include "../OpenNN/opennn/opennn.h"
 #include "../2048/Two048.h"
-#include "../GA/GA.h"
+#include "../GA/Genotype.h"
 
 using namespace std;
 

@@ -1,43 +1,29 @@
+//
+// Created by kj on 10/26/17.
+//
+
 #ifndef AUTO_NN_GA_H
 #define AUTO_NN_GA_H
 
-#include <iostream>
-#include "../OpenNN/opennn/opennn.h"
+#include "Genotype.h"
+#include "../OpenNN/opennn/vector.h"
+#include "../NeuralNetwork/NeuralNetwork.h"
 
 using namespace std;
+using namespace GA;
+using namespace NeuralNetwork;
 
 namespace GA {
-	enum LayerStructure {Uniform, Decreasing, Increasing} ;
-	struct Signature {
-		int minHiddenLayers;
-		int maxHiddenLayers;
-		int minNeurons;
-		int maxNeurons;
-		int positiveReward;
-		int negativeReward;
-		int inputSize;
-		int outputSize;
-		LayerStructure layerStructure;
+	class GA {
+
+	public:
+
+		int year;
+		vector<NeuralNetwork::NeuralNetwork *> population;
+
+		GA(int n, Signature &signature);
+		void train();
 	};
-
-	class Genotype {
-
-public:
-	Signature signature;
-	vector<int> architecture;
-	float learningRate;         // eta
-	float discountFactor;       // gamma
-	int generation;
-
-	// genotype from signature
-	Genotype(Signature *_signature);
-
-	// clone, set cloneWithMutation if you require performing random mutation
-	Genotype(Genotype * A, bool cloneWithMutation = false);
-
-	// crossover
-	Genotype(Genotype * A, Genotype * B);
-};
 }
 
 
