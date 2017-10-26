@@ -1,3 +1,6 @@
+#ifndef AUTO_NN_NN_H_H
+#define AUTO_NN_NN_H_H
+
 #include <iostream>
 #include "../OpenNN/opennn/opennn.h"
 #include "../2048/Two048.h"
@@ -29,3 +32,5 @@ namespace NeuralNetwork {
 
 	};
 }
+
+#endif //AUTO_NN_NN_H_H

@@ -2,6 +2,10 @@
 
 namespace Two048 {
 
+	Game::staticConstructor::staticConstructor() {
+		srand(time(NULL));
+	}
+
 	int * Game::getGridPointer(int m, int n, bool transpose) {
 		if(!transpose)
 			return &this->grid[m][n];

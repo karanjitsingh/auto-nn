@@ -1,5 +1,5 @@
 #include <iostream>
-#include "2048/Two048.cpp"
+#include "2048/Two048.h"
 
 
 using namespace std;

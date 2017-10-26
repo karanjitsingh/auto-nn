@@ -42,13 +42,13 @@ namespace GA {
 	}
 
 	// clone, set cloneWithMutation if you require performing random mutation
-	Genotype::Genotype(Genotype * A, bool cloneWithMutation = false) {
+	Genotype::Genotype(Genotype * A, bool cloneWithMutation) {
 		this->signature.minHiddenLayers = A->signature.minHiddenLayers;
-		this->signature.maxHiddenLayers = A->signature.->maxHiddenLayers;
-		this->signature.minNeurons = A->signature.->minNeurons;
-		this->signature.maxNeurons = A->signature.->maxNeurons;
-		this->signature.positiveReward = A->signature.->positiveReward;
-		this->signature.negativeReward = A->signature.->negativeReward;
+		this->signature.maxHiddenLayers = A->signature.maxHiddenLayers;
+		this->signature.minNeurons = A->signature.minNeurons;
+		this->signature.maxNeurons = A->signature.maxNeurons;
+		this->signature.positiveReward = A->signature.positiveReward;
+		this->signature.negativeReward = A->signature.negativeReward;
 		this->signature.inputSize = A->signature.inputSize;
 		this->signature.outputSize = A->signature.outputSize;
 		this->signature.layerStructure = A->signature.layerStructure;

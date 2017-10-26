@@ -1,7 +1,6 @@
 #ifndef AUTO_NN_GAME_H_H
 #define AUTO_NN_GAME_H_H
 
-
 #include <iostream>
 
 using namespace std;
@@ -32,6 +31,7 @@ namespace Two048 {
 		int ** grid;
 		GameState currState;
 
+		// Point to m,n element in grid with transposed option
 		int * getGridPointer(int m, int n, bool transpose);
 
 		int addRandom();
