@@ -65,6 +65,7 @@ namespace GA {
 		 * mutate next 15%
 		 * delete rest 60%
 		 * randomly select 8 pairs and perform crossover
+		 * update population
 		 *
 		 */
 	}
