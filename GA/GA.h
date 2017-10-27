@@ -7,22 +7,24 @@
 
 #include "Genotype.h"
 #include "../OpenNN/opennn/vector.h"
-#include "../NeuralNetwork/NeuralNetwork.h"
+#include "../Agent/Agent.h"
 
 using namespace std;
 using namespace GA;
-using namespace NeuralNetwork;
+using namespace Agent;
 
 namespace GA {
 	class GA {
 
 	public:
 
+		vector<Agent::Agent *> population;
+		int population_size;
 		int year;
-		vector<NeuralNetwork::NeuralNetwork *> population;
 
-		GA(int n, Signature &signature);
-		void train();
+		GA(int population_size, const Signature &signature);
+
+		void iterate();
 	};
 }
 

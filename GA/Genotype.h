@@ -32,7 +32,7 @@ namespace GA {
 		void generateArchitecture();
 
 	public:
-		Signature signature;
+		const Signature * signature;
 
 		vector<int> architecture;
 		float learningRate;         // eta
@@ -40,13 +40,13 @@ namespace GA {
 		int generation;
 
 		// genotype from signature
-		Genotype(Signature *_signature);
+		Genotype(const Signature *_signature);
 
 		// clone, set cloneWithMutation if you require performing random mutation
-		Genotype(Genotype * A, bool cloneWithMutation = false);
+		Genotype(const Genotype * A, bool cloneWithMutation = false);
 
 		// crossover
-		Genotype(Genotype * A, Genotype * B);
+		Genotype(const Genotype * A, const Genotype * B);
 	};
 }
 

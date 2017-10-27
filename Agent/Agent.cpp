@@ -1,7 +1,8 @@
-#include "NeuralNetwork.h"
+#include "Agent.h"
 
-namespace NeuralNetwork {
-	NeuralNetwork::NeuralNetwork(const int &Genotype) {
+namespace Agent {
+	Agent::Agent(const GA::Genotype &genotype) {
+
 		this->game = new Two048::Game(4);
 //        this->genotype.minHiddenLayers = genotype.minHiddenLayers;
 //        this->genotype.maxHiddenLayers = genotype.maxHiddenLayers;
