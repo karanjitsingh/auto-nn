@@ -6,15 +6,18 @@
 
 namespace GA {
 
-	GA::GA(int population_size, const Signature &signature) {
+	GA::GA(int population_size, int mutate_size, int retain_size, const Signature &genotype_signature)
+	{
 		Genotype * genotype;
 		Agent::Agent * agent;
 
 		year = 0;
 		this->population_size = population_size;
+		this->retain_size = retain_size;
+		this->mutate_size = mutate_size;
 
 		for(int i=0;i<population_size;i++) {
-			genotype = new Genotype(&signature);
+			genotype = new Genotype(&genotype_signature);
 			agent = new Agent::Agent(genotype);
 
 			genotype->generation = 1;
@@ -23,51 +26,64 @@ namespace GA {
 		}
 	}
 
-	void GA::iterate() {
-		// ga algorithm here
+	vector<TrainingResult *> * GA::iterate(int epochs) {
+
+		this->year++;
 
 		Agent::Agent * agent;
+		map<float, int> ranking;
+		vector<Agent::Agent *> next_generation;
 
-		/*
-		 *	map<int,float> ranking;
-		 */
+		auto * results =  new vector<TrainingResult *>;
 
 		for(int i=0;i<population_size;i++) {
 			agent = this->population[i];
 
-			/* remember to set static settings for agent in main
-			 *
-			 *	python code
-			 *
-			 *	nn.train(
-			 *		verbose=False,
-			 *		progress=True,
-			 *		save=True,
-			 *		maxepochs=20000,
-			 *		batch=30,
-			 *		replay_size=100000,
-			 *		filename=name,
-			 *		autosave=100,
-			 *		savestats=True,
-			 *	)
-			 *
-			 *	Agent::Agent::TrainingResult * result = agent.train(number of epochs)
-			 *
-			 *	ranking.push_back(i,result.fitness_score);
-			 *
-			 */
+			Agent::TrainingResult  * result = agent->train(epochs);
+			results->push_back(result);
+
+			ranking.insert(pair<float, int>(result->avg_score, i));
 		}
 
-		/*
-		 * sort ranking by fitness
-		 *
-		 * retain first 25%
-		 * mutate next 15%
-		 * delete rest 60%
-		 * randomly select 8 pairs and perform crossover
-		 * update population
-		 *
-		 */
+		sort(ranking.begin(), ranking.end());
+
+		for(int i=0;i<this->retain_size;i++) {
+			// pop from population
+			// push to next generation
+		}
+
+		for(int i=0;i<this->mutate_size;i++) {
+			// pop from population
+			// mutate genotype
+			// update generation
+			// delete old agent
+			// create new agent
+			// push to next generation
+		}
+
+		while(population.size()) {
+			// pop from population
+			// delete agent
+		}
+
+		int offspring_length = this->population_size - retain_size - mutate_size;
+		int parent_A_index, parent_B_index;
+		int alive = retain_size + mutate_size;
+
+		Genotype * offspring_genotype;
+
+		for(int i=0;i<offspring_length;i++) {
+			parent_A_index = rand()%alive;
+			while((parent_B_index = rand()%alive) != parent_A_index);
+
+			offspring_genotype = new Genotype(next_generation[parent_A_index]->genotype, next_generation[parent_B_index]->genotype);
+			offspring_genotype->generation = this->year + 1;
+
+			next_generation.push_back(new Agent::Agent(offspring_genotype));
+		}
+
+		this->population = next_generation;
+
 	}
 
 }

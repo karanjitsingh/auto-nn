@@ -14,17 +14,34 @@ using namespace GA;
 using namespace Agent;
 
 namespace GA {
+
 	class GA {
 
 	public:
 
 		vector<Agent::Agent *> population;
+
+		// Evolution parameters
 		int population_size;
+		int mutate_size;
+		int retain_size;
+
 		int year;
 
-		GA(int population_size, const Signature &signature);
+		GA(
+				int population_size,
+				int mutate_size,
+				int retain_size,
+				const Signature &genotype_signature
+		);
 
-		void iterate();
+		vector<TrainingResult *> * iterate(int epochs);
+
+		~GA() {
+			for(int i=0;i<population_size;i++) {
+				delete population[i];
+			}
+		}
 	};
 }
 

@@ -10,7 +10,7 @@ using namespace std;
 
 namespace Agent {
 
-	struct TrainingResults {
+	struct TrainingResult {
 		int total_games;
 		map<int, int> maxTileCount;	// <tile, count>
 		float avg_score;
@@ -24,11 +24,12 @@ namespace Agent {
 	class Agent {
 	private:
 
-		const GA::Genotype * genotype;
 		OpenNN::NeuralNetwork * network;
 		Two048::Game * game;
 
 	public:
+
+		const GA::Genotype * genotype;
 
 		// Generate new entity from genotype
 		explicit Agent(const GA::Genotype * genotype);
@@ -39,7 +40,7 @@ namespace Agent {
 			delete game;
 		}
 
-		TrainingResults * train(int epochs);
+		TrainingResult * train(int epochs);
 
 
 	};
