@@ -15,15 +15,15 @@ namespace GA {
 	};
 
 	struct Signature {
-		int minHiddenLayers;
-		int maxHiddenLayers;
-		int minNeurons;
-		int maxNeurons;
-		int positiveReward;
-		int negativeReward;
-		int inputSize;
-		int outputSize;
-		LayerStructure layerStructure;
+		int min_hidden_layers;
+		int max_hidden_layers;
+		int min_neurons;
+		int max_neurons;
+		int positive_reward;
+		int negative_reward;
+		int input_size;
+		int output_size;
+		LayerStructure layer_structure;
 	};
 
 	class Genotype {
@@ -35,8 +35,8 @@ namespace GA {
 		const Signature * signature;
 
 		vector<int> architecture;
-		float learningRate;         // eta
-		float discountFactor;       // gamma
+		float learning_rate;         // eta
+		float discount_factor;       // gamma
 		int generation;
 
 		// genotype from signature

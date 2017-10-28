@@ -1,37 +1,50 @@
 #include <iostream>
-#include "2048/Two048.h"
+#include "GA/GA.h"
 
 using namespace std;
 
 
+void print_population(GeneticAlgorithm * ga) {
+	for(int i=0;i<ga->population_size;i++) {
+		auto layers = (int)ga->population[i]->genotype->architecture.size();
+		const vector<int> * architecture = &(ga->population[i]->genotype->architecture);
+
+		cout << "[";
+		for(int j=0;j<layers;j++) {
+			cout << (*architecture)[j] << ",";
+		}
+		cout << "]" << endl;
+	}
+}
+
 int main() {
 
-	Two048::Game game(4);
+	Signature * sign = new Signature;
+	sign->min_hidden_layers = 1;
+	sign->max_hidden_layers = 10;
+	sign->min_neurons = 16;
+	sign->max_neurons = 32;
+	sign->positive_reward = 1;
+	sign->negative_reward = 1;
+	sign->input_size = 16;
+	sign->output_size = 4;
+	sign->layer_structure = Random;
 
-	game.printGrid();
+	GeneticAlgorithm * ga = new GeneticAlgorithm(20, 5, 3, sign);
 
-	Two048::GameState state;
+	print_population(ga);
 
-	for(int a=0;a<100;a++) {
-		char b;
-		cin >> b;
-		switch(b) {
-			case 'w':
-				state = game.transition((Two048::Direction)(0));
-				break;
-			case 's':
-				state = game.transition((Two048::Direction)(1));
-				break;
-			case 'a':
-				state = game.transition((Two048::Direction)(2));
-				break;
-			case 'd':
-				state = game.transition((Two048::Direction)(3));
-				break;
-		}
-		game.printGrid();
-		cout << "valid:" << state.valid << ",full:" << state.full << ",halt:" << state.halt << ",score:" << state.score;
-	}
+	ga->iterate(300);
+
+	cout << " ";
+
+	print_population(ga);
+
+
+//	auto results = new vector<TrainingResult *>;
+
+
+
 
 	return 0;
 }

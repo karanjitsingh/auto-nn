@@ -35,9 +35,9 @@ namespace Agent {
 		explicit Agent(const GA::Genotype * genotype);
 
 		~Agent() {
-			delete network;
+//			delete network;
 			delete genotype;
-			delete game;
+//			delete game;
 		}
 
 		TrainingResult * train(int epochs);

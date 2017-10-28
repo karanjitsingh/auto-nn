@@ -15,7 +15,7 @@ using namespace Agent;
 
 namespace GA {
 
-	class GA {
+	class GeneticAlgorithm {
 
 	public:
 
@@ -28,16 +28,16 @@ namespace GA {
 
 		int year;
 
-		GA(
+		GeneticAlgorithm(
 				int population_size,
-				int mutate_size,
 				int retain_size,
-				const Signature &genotype_signature
+				int mutate_size,
+				const Signature * genotype_signature
 		);
 
 		vector<TrainingResult *> * iterate(int epochs);
 
-		~GA() {
+		~GeneticAlgorithm() {
 			for(int i=0;i<population_size;i++) {
 				delete population[i];
 			}

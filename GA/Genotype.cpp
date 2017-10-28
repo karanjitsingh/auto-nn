@@ -6,12 +6,12 @@ namespace GA {
 
 		this->architecture.clear();
 
-		int layers = rand()%(signature->maxHiddenLayers - signature->minHiddenLayers) + signature->minHiddenLayers;
-		int nodes = rand()%(signature->maxNeurons - signature->minNeurons) + signature->minHiddenLayers;
+		int layers = rand()%(signature->max_hidden_layers - signature->min_hidden_layers) + signature->min_hidden_layers;
+		int nodes = rand()%(signature->max_neurons - signature->min_neurons) + signature->min_neurons;
 
-		architecture.push_back(signature->inputSize);
+		architecture.push_back(signature->input_size);
 
-		switch(signature->layerStructure) {
+		switch(signature->layer_structure) {
 			case Uniform:
 				for(int i=0;i<layers;i++)
 					architecture.push_back(nodes);
@@ -19,26 +19,26 @@ namespace GA {
 			case Decreasing:
 				for(int i=0;i<layers;i++) {
 					architecture.push_back(nodes);
-					if (nodes > signature->minNeurons)
+					if (nodes > signature->min_neurons)
 						nodes--;
 				}
 				break;
 			case Increasing:
 				for(int i=0;i<layers;i++) {
 					architecture.push_back(nodes);
-					if (nodes < signature->maxNeurons)
+					if (nodes < signature->max_neurons)
 						nodes++;
 				}
 				break;
 			case Random:
 				for(int i=0;i<layers;i++) {
 					architecture.push_back(nodes);
-					nodes = rand() % (signature->maxNeurons - signature->minNeurons) + signature->minHiddenLayers;
+					nodes = rand() % (signature->max_neurons - signature->min_neurons) + signature->min_neurons;
 				}
 				break;
 		}
 
-		architecture.push_back(signature->outputSize);
+		architecture.push_back(signature->output_size);
 	}
 
 	Genotype::Genotype(const Signature *_signature) {
@@ -47,8 +47,8 @@ namespace GA {
 		this->signature = _signature;
 		generateArchitecture();
 
-		learningRate = ((float) (rand() % 100)/ 100);
-		discountFactor = ((float) (rand() % 100)/ 100);
+		learning_rate = ((float) (rand() % 100)/ 100);
+		discount_factor = ((float) (rand() % 100)/ 100);
 	}
 
 	Genotype::Genotype(const Genotype * A, bool cloneWithMutation) {
@@ -56,16 +56,16 @@ namespace GA {
 		// Clone genotype
 		this->signature = A->signature;
 		architecture = A->architecture;	// copies the vector
-		learningRate = A->learningRate;
-		discountFactor = A->discountFactor;
+		learning_rate = A->learning_rate;
+		discount_factor = A->discount_factor;
 
 		if(cloneWithMutation) {		// Add random mutation
 			switch(rand()%3) {
 				case 0:
-					learningRate = float((rand() * 100) / 1000);
+					learning_rate = float((rand() * 100) / 1000);
 					break;
 				case 1:
-					discountFactor = float((rand() * 100) / 1000);
+					discount_factor = float((rand() * 100) / 1000);
 					break;
 				case 2:
 					generateArchitecture();
@@ -89,7 +89,7 @@ namespace GA {
 		// Add (layers_A + layers_B)%2 term to add ceil to integer division
 		int layers_C = (layers_A + layers_B)/2 + (layers_A + layers_B)%2;
 
-		architecture.push_back(signature->inputSize);
+		architecture.push_back(signature->input_size);
 
 		for(int i=0;i<layers_C;i++) {
 
@@ -117,9 +117,9 @@ namespace GA {
 		}
 
 		// take average of float parameters
-		learningRate = (A->learningRate + B->learningRate)/2;
-		discountFactor = (A->discountFactor + B->discountFactor)/2;
+		learning_rate = (A->learning_rate + B->learning_rate)/2;
+		discount_factor = (A->discount_factor + B->discount_factor)/2;
 
-		architecture.push_back(signature->outputSize);
+		architecture.push_back(signature->output_size);
 	}
 }

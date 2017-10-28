@@ -3,8 +3,14 @@
 namespace Agent {
 	Agent::Agent(const GA::Genotype * genotype) {
 
-		this->game = new Two048::Game(4);
+
 		this->genotype = genotype;
+
+		// skip the rest for now till we're testing ga
+		return;
+
+
+		this->game = new Two048::Game(4);
 
 		OpenNN::Vector<size_t> nn_architecture;
 
@@ -13,13 +19,14 @@ namespace Agent {
 			nn_architecture.push_back((size_t)genotype->architecture[i]);
 		}
 
+
 		this->network = new OpenNN::NeuralNetwork(nn_architecture);
 		/*
 		 * set other nn settings
 		 */
 	}
 
-	TrainingResult * train(int epochs) {
+	TrainingResult * Agent::train(int epochs) {
 
 		TrainingResult * results = new TrainingResult;
 
@@ -39,7 +46,10 @@ namespace Agent {
 		 *		savestats=True,
 		 *	)
 		 *
+		 *	the following is stub code for now
 		 */
+
+		results->avg_score = rand()%5000 + 5000;
 
 		return results;
 
