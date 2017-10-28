@@ -48,22 +48,27 @@ namespace GA {
 		sort(ranking.begin(), ranking.end());
 
 		for(int i=0;i<this->retain_size;i++) {
-			// pop from population
-			// push to next generation
+			agent = population[0];
+			population.erase(population.begin());
+			next_generation.push_back(agent);
 		}
 
 		for(int i=0;i<this->mutate_size;i++) {
-			// pop from population
-			// mutate genotype
-			// update generation
-			// delete old agent
-			// create new agent
-			// push to next generation
+			agent = population[0];
+			population.erase(population.begin());
+
+			Genotype * mutated_genotype = new Genotype(agent->genotype,true);
+			mutated_genotype->generation = this->year + 1;
+
+			Agent::Agent * mutated_agent = new Agent::Agent(mutated_genotype);
+			delete agent;
+
+			next_generation.push_back(mutated_agent);
 		}
 
 		while(population.size()) {
-			// pop from population
-			// delete agent
+			agent = population[0];
+			delete agent;
 		}
 
 		int offspring_length = this->population_size - retain_size - mutate_size;
@@ -83,6 +88,8 @@ namespace GA {
 		}
 
 		this->population = next_generation;
+
+		return results;
 
 	}
 
