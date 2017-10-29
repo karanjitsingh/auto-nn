@@ -6,6 +6,8 @@
 
 namespace GA {
 
+	Agent::Agent * x;
+
 	GeneticAlgorithm::GeneticAlgorithm(int population_size, int retain_size, int mutate_size, const Signature * genotype_signature)
 	{
 		Genotype * genotype;
@@ -19,6 +21,10 @@ namespace GA {
 		for(int i=0;i<population_size;i++) {
 			genotype = new Genotype(genotype_signature);
 			agent = new Agent::Agent(genotype);
+
+			if(i==0) {
+				x = agent;
+			}
 
 			genotype->generation = 1;
 
@@ -50,52 +56,29 @@ namespace GA {
 
 		// Remember map is already sorted, just have to use an iterator
 
-		cout << ++k << endl;
-
 		int i=0;
 		for (auto it=ranking.begin(); it!=ranking.end(); ++it, i++) {
-			cout << ++k << " 1" << " - " << it->second << endl;
 
 			agent = population[it->second];
 
 			if(i<retain_size) {
-				cout << ++k << " 2" << endl;
 				next_generation.push_back(agent);
-
 			}
 			else if(i <retain_size + mutate_size) {
-				cout << ++k << " 3" << endl;
 				Genotype * mutated_genotype = new Genotype(agent->genotype,true);
-				cout << ++k << " 3" << " 1" << endl;
 
 				mutated_genotype->generation = this->year + 1;
 
-				cout << ++k << " 3" << " 2" << endl;
-
 				Agent::Agent * mutated_agent = new Agent::Agent(mutated_genotype);
-
-				cout << ++k << " 3" << " 3" << endl;
 
 				delete agent;
 
-				cout << ++k << " 3" << " 4" << " - " << population.size() << endl;
 				next_generation.push_back(mutated_agent);
-
-
+			}
+			else {
+				delete agent;
 			}
 		}
-
-		k=0;
-		cout << ++k << endl;
-
-		auto kill_count = (int)population.size();
-		for(int i=retain_size+mutate_size;i<kill_count;i++) {
-			agent = population[i];
-			delete agent;
-		}
-
-		cout << ++k << endl;
-
 
 		population.clear();
 
@@ -107,7 +90,7 @@ namespace GA {
 
 		for(int i=0;i<offspring_length;i++) {
 			parent_A_index = rand()%alive;
-			while((parent_B_index = rand()%alive) != parent_A_index);
+			while((parent_B_index = rand()%alive) == parent_A_index);
 
 			offspring_genotype = new Genotype(next_generation[parent_A_index]->genotype, next_generation[parent_B_index]->genotype);
 			offspring_genotype->generation = this->year + 1;
@@ -118,7 +101,6 @@ namespace GA {
 		this->population = next_generation;
 
 		return results;
-		cout << ++k << endl;
 
 
 	}

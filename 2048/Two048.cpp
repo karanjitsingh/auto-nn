@@ -2,10 +2,6 @@
 
 namespace Two048 {
 
-	Game::staticConstructor::staticConstructor() {
-		srand(time(NULL));
-	}
-
 	int * Game::getGridPointer(int m, int n, bool transpose) {
 		if(!transpose)
 			return &this->grid[m][n];
@@ -39,8 +35,6 @@ namespace Two048 {
 	}
 
 	Game::Game(int n) {
-			// Call to static constructor, will be called only once
-			static staticConstructor cons;
 
 			size = n;
 			emptyTilesCount = this->size * this->size;

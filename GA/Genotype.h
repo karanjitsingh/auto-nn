@@ -29,7 +29,7 @@ namespace GA {
 	class Genotype {
 
 	private:
-		void generateArchitecture();
+		void generate_architecture();
 
 	public:
 		const Signature * signature;
@@ -38,6 +38,8 @@ namespace GA {
 		float learning_rate;         // eta
 		float discount_factor;       // gamma
 		int generation;
+
+		void print_architecture(bool newline = true) const;
 
 		// genotype from signature
 		Genotype(const Signature *_signature);

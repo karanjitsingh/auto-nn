@@ -1,13 +1,26 @@
+#include "iostream"
 #include "Genotype.h"
 
 namespace GA {
 
-	void Genotype::generateArchitecture() {
+	void Genotype::print_architecture(bool newline) const{
+		auto layers = architecture.size();
+
+		cout << "[";
+		for(int j=0;j<layers;j++) {
+			cout << architecture[j] << ",";
+		}
+		cout << "]";
+
+		if(newline) cout << endl;
+	}
+
+	void Genotype::generate_architecture() {
 
 		this->architecture.clear();
 
-		int layers = rand()%(signature->max_hidden_layers - signature->min_hidden_layers) + signature->min_hidden_layers;
-		int nodes = rand()%(signature->max_neurons - signature->min_neurons) + signature->min_neurons;
+		int layers = rand()%(signature->max_hidden_layers - signature->min_hidden_layers + 1) + signature->min_hidden_layers;
+		int nodes = rand()%(signature->max_neurons - signature->min_neurons + 1) + signature->min_neurons;
 
 		architecture.push_back(signature->input_size);
 
@@ -45,7 +58,7 @@ namespace GA {
 
 		// Generate genotype
 		this->signature = _signature;
-		generateArchitecture();
+		generate_architecture();
 
 		learning_rate = ((float) (rand() % 100)/ 100);
 		discount_factor = ((float) (rand() % 100)/ 100);
@@ -60,16 +73,17 @@ namespace GA {
 		discount_factor = A->discount_factor;
 
 		if(cloneWithMutation) {		// Add random mutation
-			switch(rand()%3) {
+			int c = rand();
+			switch(c%3) {
 				case 0:
-					learning_rate = float((rand() * 100) / 1000);
+					learning_rate = (rand() % 100) / 100.0f;
 					break;
 				case 1:
-					discount_factor = float((rand() * 100) / 1000);
+					discount_factor = (rand() % 100) / 100.0f;
 					break;
 				case 2:
-					generateArchitecture();
-					break;
+					generate_architecture();
+ 					break;
 			}
 		}
 	}
@@ -77,6 +91,8 @@ namespace GA {
 	Genotype::Genotype(const Genotype * parentA, const Genotype * parentB) {
 
 		// Perform uniform crossover A -> C <- B
+		// parentA->signature is same as parentB->signature
+		this->signature = parentA->signature;
 
 		// Arrange A and B such that layers_A <= layers_B
 		const Genotype * A = parentA->architecture.size() <= parentB->architecture.size() ? parentA : parentB;
@@ -99,7 +115,7 @@ namespace GA {
 			// each layer of C will map to at most one layer in A
 			int layerAIndex = i*layers_A/layers_C;
 
-			avg_neurons += A->architecture.at(layerAIndex);
+			avg_neurons += A->architecture.at(layerAIndex + 1);
 
 			// layers_B >= layers_C
 			// each layer of C may map to one or more layers in B
@@ -107,7 +123,7 @@ namespace GA {
 			int end = (i+1)*layers_B/layers_C;
 
 			for(int j=start; j<end; j++) {
-				avg_neurons += B->architecture.at(j);
+				avg_neurons += B->architecture.at(j + 1);
 			}
 
 			avg_neurons /= (end - start + 1);	// number of layers mapped in B + 1 layer mapped in A
@@ -121,5 +137,6 @@ namespace GA {
 		discount_factor = (A->discount_factor + B->discount_factor)/2;
 
 		architecture.push_back(signature->output_size);
+
 	}
 }

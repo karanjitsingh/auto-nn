@@ -6,14 +6,7 @@ using namespace std;
 
 void print_population(GeneticAlgorithm * ga) {
 	for(int i=0;i<ga->population_size;i++) {
-		auto layers = (int)ga->population[i]->genotype->architecture.size();
-		const vector<int> * architecture = &(ga->population[i]->genotype->architecture);
-
-		cout << "[";
-		for(int j=0;j<layers;j++) {
-			cout << (*architecture)[j] << ",";
-		}
-		cout << "]" << endl;
+		ga->population[i]->genotype->print_architecture();
 	}
 }
 
@@ -21,7 +14,7 @@ int main() {
 
 	Signature * sign = new Signature;
 	sign->min_hidden_layers = 1;
-	sign->max_hidden_layers = 10;
+	sign->max_hidden_layers = 3;
 	sign->min_neurons = 16;
 	sign->max_neurons = 32;
 	sign->positive_reward = 1;
@@ -30,13 +23,14 @@ int main() {
 	sign->output_size = 4;
 	sign->layer_structure = Random;
 
-	GeneticAlgorithm * ga = new GeneticAlgorithm(20, 5, 3, sign);
+	srand(time(NULL));
+
+	GeneticAlgorithm * ga = new GeneticAlgorithm(20, 5, 5, sign);
 
 	print_population(ga);
 
 	ga->iterate(300);
-
-	cout << " ";
+	cout << endl;
 
 	print_population(ga);
 

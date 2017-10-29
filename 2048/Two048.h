@@ -20,12 +20,6 @@ namespace Two048 {
 
 	private:
 
-		// Static constructor
-		struct staticConstructor {
-		public:
-			staticConstructor();
-		};
-
 		int size;
 		int emptyTilesCount;
 		int ** grid;
