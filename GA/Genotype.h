@@ -38,17 +38,23 @@ namespace GA {
 		float learning_rate;         // eta
 		float discount_factor;       // gamma
 		int generation;
+		int id;
+		std::pair<int,int> * parent_id;
 
 		void print_architecture(bool newline = true) const;
 
 		// genotype from signature
-		Genotype(const Signature *_signature);
+		Genotype(int id, const Signature *_signature);
 
 		// clone, set cloneWithMutation if you require performing random mutation
-		Genotype(const Genotype * A, bool cloneWithMutation = false);
+		Genotype(int id, const Genotype * A, bool cloneWithMutation = false);
 
 		// crossover
-		Genotype(const Genotype * A, const Genotype * B);
+		Genotype(int id, const Genotype * A, const Genotype * B);
+
+		~Genotype() {
+			delete parent_id;
+		}
 	};
 }
 

@@ -19,7 +19,7 @@ namespace GA {
 		this->mutate_size = mutate_size;
 
 		for(int i=0;i<population_size;i++) {
-			genotype = new Genotype(genotype_signature);
+			genotype = new Genotype(i, genotype_signature);
 			agent = new Agent::Agent(genotype);
 
 			if(i==0) {
@@ -45,6 +45,9 @@ namespace GA {
 
 		auto * results =  new vector<TrainingResult *>;
 
+		int generation_id = 0;
+
+
 		for(int i=0;i<population_size;i++) {
 			agent = this->population[i];
 
@@ -65,7 +68,7 @@ namespace GA {
 				next_generation.push_back(agent);
 			}
 			else if(i <retain_size + mutate_size) {
-				Genotype * mutated_genotype = new Genotype(agent->genotype,true);
+				Genotype * mutated_genotype = new Genotype(generation_id++, agent->genotype,true);
 
 				mutated_genotype->generation = this->year + 1;
 
@@ -92,7 +95,7 @@ namespace GA {
 			parent_A_index = rand()%alive;
 			while((parent_B_index = rand()%alive) == parent_A_index);
 
-			offspring_genotype = new Genotype(next_generation[parent_A_index]->genotype, next_generation[parent_B_index]->genotype);
+			offspring_genotype = new Genotype(generation_id++, next_generation[parent_A_index]->genotype, next_generation[parent_B_index]->genotype);
 			offspring_genotype->generation = this->year + 1;
 
 			next_generation.push_back(new Agent::Agent(offspring_genotype));

@@ -54,7 +54,10 @@ namespace GA {
 		architecture.push_back(signature->output_size);
 	}
 
-	Genotype::Genotype(const Signature *_signature) {
+	Genotype::Genotype(int id, const Signature *_signature) {
+
+		this->id = id;
+		this->parent_id = NULL;
 
 		// Generate genotype
 		this->signature = _signature;
@@ -64,7 +67,10 @@ namespace GA {
 		discount_factor = ((float) (rand() % 100)/ 100);
 	}
 
-	Genotype::Genotype(const Genotype * A, bool cloneWithMutation) {
+	Genotype::Genotype(int id, const Genotype * A, bool cloneWithMutation) {
+
+		this->id = id;
+		this->parent_id = new pair<int,int>(A->id, A->id);
 
 		// Clone genotype
 		this->signature = A->signature;
@@ -88,7 +94,10 @@ namespace GA {
 		}
 	}
 
-	Genotype::Genotype(const Genotype * parentA, const Genotype * parentB) {
+	Genotype::Genotype(int id, const Genotype * parentA, const Genotype * parentB) {
+
+		this->id = id;
+		this->parent_id = new pair<int, int>(parentA->id, parentB->id);
 
 		// Perform uniform crossover A -> C <- B
 		// parentA->signature is same as parentB->signature

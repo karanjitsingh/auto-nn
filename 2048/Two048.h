@@ -37,6 +37,13 @@ namespace Two048 {
 
 		GameState transition(Direction d);
 
+		~Game() {
+			for(int i=0;i<n;i++) {
+				delete[] grid[i];
+			}
+			delete[] grid;
+		}
+
 	};
 
 

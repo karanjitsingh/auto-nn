@@ -35,20 +35,19 @@ namespace Two048 {
 	}
 
 	Game::Game(int n) {
-
-			size = n;
-			emptyTilesCount = this->size * this->size;
-			currState.score = 0;
-			grid = new int*[n];
-			for(int i=0;i<n;i++) {
-				grid[i] = new int[n];
-			}
-
-
-			// Board starts with two tiles
-			addRandom();
-			addRandom();
+		size = n;
+		emptyTilesCount = this->size * this->size;
+		currState.score = 0;
+		grid = new int*[n];
+		for(int i=0;i<n;i++) {
+			grid[i] = new int[n];
 		}
+
+
+		// Board starts with two tiles
+		addRandom();
+		addRandom();
+	}
 
 	void Game::printGrid() {
 		for(int i=0;i<this->size;i++) {
