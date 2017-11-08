@@ -6,7 +6,7 @@
 #define AUTO_NN_GA_H
 
 #include "Genotype.h"
-#include "../OpenNN/opennn/vector.h"
+#include <vector>
 #include "../Agent/Agent.h"
 
 using namespace std;
