@@ -28,13 +28,15 @@ namespace Agent {
 		string d =to_string(this->genotype->discount_factor);
 		string e = to_string(epochs);
 
-		cout << this->genotype->generation << "\t";
+		cout << "(" << this->genotype->generation << "," << this->genotype->id << ")\t";
 		this->genotype->print_architecture(false);
-		cout << "\t" << this->genotype->discount_factor << "\t" << this->genotype->learning_rate << "\tFitness: ";
+		cout << "\t" << this->genotype->discount_factor << "\t" << this->genotype->learning_rate << endl;
 
 		string command = "python ./py2048/TFNeuralNetwork.py " + architecture + " " + l + " " + d + " " + e;
 		string val = this->exec(command.c_str());
-		cout << val;
+
+		cout << "Fitness: " << val;
+		cout << "------------------------------------------------------------------\n\n\n";
 
 		results->avg_score = atof(val.c_str());
 

@@ -14,7 +14,7 @@ int main() {
 
 	Signature * sign = new Signature;
 	sign->min_hidden_layers = 1;
-	sign->max_hidden_layers = 3;
+	sign->max_hidden_layers = 2;
 	sign->min_neurons = 16;
 	sign->max_neurons = 32;
 	sign->positive_reward = 1;
@@ -28,9 +28,11 @@ int main() {
 	GeneticAlgorithm * ga = new GeneticAlgorithm(10, 3, 2, sign);
 
 
-	ga->iterate(5);
-	cout << endl;
-	ga->iterate(5);
+	for(int i=0; i<5; i++) {
+		cout << "Year: " << i+1 << endl << endl;
+		ga->iterate(3);
+		cout << endl << endl;
+	}
 
 
 //	auto results = new vector<TrainingResult *>;

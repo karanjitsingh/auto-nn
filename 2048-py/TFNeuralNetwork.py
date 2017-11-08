@@ -132,20 +132,17 @@ with tf.Session() as sess:
 				break
 
 		stat = dict()
-		# stat['maxTile'] = max([max(game.currState.grid[k]) for k in range(len(game.currState.grid))])
-		# stat['score'] = game.currState.score
-		# stat['steps'] = steps
+		stat['maxTile'] = max([max(game.currState.grid[k]) for k in range(len(game.currState.grid))])
+		stat['score'] = game.currState.score
+		stat['steps'] = steps
 		# stat['loss'] = l
 		score+=game.currState.score
 
-		import json
 
-
-		# print i+1/num_episodes, "\t", stat
+		print (i+1)/num_episodes, "\t", stat
 		rList.append(reward_sum)
 
-	avg = float(score)/num_episodes
-	print avg
+	print float(score)/num_episodes;
 	sess.close()
 
 # print "Percent of succesful episodes: " + str(sum(rList)/num_episodes) + "%"

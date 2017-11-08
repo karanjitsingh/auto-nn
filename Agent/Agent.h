@@ -27,6 +27,7 @@ namespace Agent {
 	private:
 
 		std::string exec(const char* cmd) {
+			cout << "------------------------------------------------------------------\n";
 			std::array<char, 128> buffer;
 			std::string result;
 			std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
@@ -34,8 +35,17 @@ namespace Agent {
 			while (!feof(pipe.get())) {
 				if (fgets(buffer.data(), 128, pipe.get()) != nullptr)
 				result += buffer.data();
+				cout << buffer.data();
 			}
-			return result;
+
+			int i;
+			for(i = (int)result.length()-2; i>0;i--)
+				if(result.at(i) == '\n')
+					break;
+
+			cout << "------------------------------------------------------------------\n";
+			return result.substr(i+1, result.length()-i);
+
 		}
 
 	public:

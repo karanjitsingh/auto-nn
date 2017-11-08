@@ -54,7 +54,7 @@ namespace GA {
 			Agent::TrainingResult  * result = agent->train(epochs);
 			results->push_back(result);
 
-			ranking.insert(pair<float, int>(result->avg_score, i));
+			ranking.insert(pair<float, int>(1/result->avg_score, i));
 		}
 
 		// Remember map is already sorted, just have to use an iterator
@@ -64,8 +64,11 @@ namespace GA {
 
 			agent = population[it->second];
 
+			cout << "(" << agent->genotype->generation << "," << agent->genotype->id << ")\t";
+
 			if(i<retain_size) {
 				next_generation.push_back(agent);
+				cout << "retain" << endl;
 			}
 			else if(i <retain_size + mutate_size) {
 				Genotype * mutated_genotype = new Genotype(generation_id++, agent->genotype,true);
@@ -74,11 +77,14 @@ namespace GA {
 
 				Agent::Agent * mutated_agent = new Agent::Agent(mutated_genotype);
 
+				cout << "mutate" << endl;
+
 				delete agent;
 
 				next_generation.push_back(mutated_agent);
 			}
 			else {
+				cout << "kill" << endl;
 				delete agent;
 			}
 		}
@@ -98,7 +104,18 @@ namespace GA {
 			offspring_genotype = new Genotype(generation_id++, next_generation[parent_A_index]->genotype, next_generation[parent_B_index]->genotype);
 			offspring_genotype->generation = this->year + 1;
 
-			next_generation.push_back(new Agent::Agent(offspring_genotype));
+			Agent::Agent * A = next_generation[parent_A_index];
+
+			Agent::Agent * B = next_generation[parent_B_index];
+			Agent::Agent * agent = new Agent::Agent(offspring_genotype);
+			next_generation.push_back(agent);
+
+			cout << "(" << A->genotype->generation << "," << A->genotype->id << ") + ";
+			cout << "(" << B->genotype->generation << "," << B->genotype->id << ")\t";
+
+			cout << " -> (" << agent->genotype->generation << "," << agent->genotype->id << ")\t crossover" << endl;
+
+
 		}
 
 		this->population = next_generation;
