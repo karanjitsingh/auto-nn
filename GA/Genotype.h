@@ -2,8 +2,7 @@
 #define AUTO_NN_GENOTYPE_H
 
 #include <iostream>
-#include "../OpenNN/opennn/opennn.h"
-
+#include <vector>
 using namespace std;
 
 namespace GA {

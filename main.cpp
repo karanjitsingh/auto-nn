@@ -25,14 +25,12 @@ int main() {
 
 	srand(time(NULL));
 
-	GeneticAlgorithm * ga = new GeneticAlgorithm(20, 5, 5, sign);
+	GeneticAlgorithm * ga = new GeneticAlgorithm(10, 3, 2, sign);
 
-	print_population(ga);
 
-	ga->iterate(300);
+	ga->iterate(5);
 	cout << endl;
-
-	print_population(ga);
+	ga->iterate(5);
 
 
 //	auto results = new vector<TrainingResult *>;

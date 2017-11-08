@@ -9,4 +9,3 @@ set(SOURCE_FILES
         Agent/Agent.cpp 2048/Two048.h GA/Genotype.cpp GA/Genotype.h Agent/Agent.h GA/GA.cpp GA/GA.h)
 
 add_executable(auto_nn ${SOURCE_FILES})
-add_subdirectory(OpenNN)
